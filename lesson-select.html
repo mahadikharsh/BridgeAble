@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+     <div class="topbar">
+        <div class="brand">
+            <h1>BridgeAble</h1>
+            <p class="top-tagline">Bridging Learning Gaps Through Adaptive Education</p>
+        </div>
+    </div>
+
+    <div class="lesson-container">
+    <div class="lesson-card" onclick="selectLesson('algorithm')">
+        <h3>Algorithm Basics</h3>
+        <p>Understand step-by-step problem solving.</p>
+    </div>
+
+    <div class="lesson-card" onclick="selectLesson('programming')">
+        <h3>Introduction to Programming</h3>
+        <p>Learn core programming concepts.</p>
+    </div>
+
+    <div class="lesson-card" onclick="selectLesson('html')">
+        <h3>HTML Fundamentals</h3>
+        <p>Build the structure of web pages.</p>
+    </div>
+</div>
+
+<script>
+function selectLesson(lesson) {
+    localStorage.setItem("selectedLesson", lesson);
+    window.location.href = "lesson.html";
+}
+</script>
+
+</body>
+</html>
