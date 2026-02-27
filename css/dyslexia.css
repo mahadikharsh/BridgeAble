@@ -1,0 +1,26 @@
+
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("../assets/font/open-dyslexic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.dyslexia-mode {
+  background: #fbf7ee;
+  font-family: "OpenDyslexic", Inter, Arial, sans-serif;
+}
+
+.dyslexia-mode #lesson-content {
+  font-size: 18px;
+  line-height: 1.9;
+  letter-spacing: 0.6px;
+  word-spacing: 2px;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.dyslexia-mode #lesson-content p {
+  margin-bottom: 14px;
+}

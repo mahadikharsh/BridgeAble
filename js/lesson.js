@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const mode = localStorage.getItem("learningMode") || "normal";
-    const lesson = localStorage.getItem("selectedLesson") || "algorithm";
+    const lessonKey = localStorage.getItem("selectedLesson") || "algorithm";
 
     applyMode(mode);
-    renderLesson(lesson);
+    renderLesson(lessonKey);
 });
 
 function applyMode(mode) {
@@ -22,10 +22,17 @@ function applyMode(mode) {
 }
 
 function renderLesson(lessonKey) {
+
+    if (!lessons || !lessons[lessonKey]) {
+        console.error("Lesson not found:", lessonKey);
+        return;
+    }
+
     const lessonTitle = document.getElementById("lesson-title");
     const lessonContent = document.getElementById("lesson-content");
 
     const mode = localStorage.getItem("learningMode") || "normal";
+    
 
     lessonTitle.innerText = lessons[lessonKey].title;
 
@@ -34,4 +41,18 @@ function renderLesson(lessonKey) {
     } else {
         lessonContent.innerHTML = lessons[lessonKey].normal;
     }
+}
+
+function readAloud() {
+    const content = document.getElementById("lesson-content");
+    const text = content.innerText;
+
+    if (!text) return;
+
+    window.speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "en-US";
+
+    window.speechSynthesis.speak(speech);
 }

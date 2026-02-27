@@ -1,49 +1,146 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BridgeAble</title>
-    <link rel="stylesheet" href="css/main.css">
+  <title>BridgeAble</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
 
-    <div class="topbar">
-        <div class="brand">
-            <h1>BridgeAble</h1>
-            <p class="top-tagline">Bridging Learning Gaps Through Adaptive Education</p>
-        </div>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="nav">
+    <div class="logo">BridgeAble</div>
+    <ul>
+      <li onclick="scrollToSection('home')">Home</li>
+      <li onclick="scrollToSection('features')">Features</li>
+      <li onclick="scrollToSection('modes')">Modes</li>
+      <li onclick="scrollToSection('tool')">Tool</li>
+    </ul>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <h1>Learning Without Barriers</h1>
+    <p>Bridging Learning Gaps Through Adaptive Education</p>
+    <button onclick="scrollToSection('modes')">Choose Mode</button>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features" id="features">
+    <h2>Our Features</h2>
+    <div class="feature-container">
+
+      <div class="feature-card">
+        <h3>Voice Navigation</h3>
+        <p>Control the platform using voice commands for better accessibility.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Adaptive Modes</h3>
+        <p>Dyslexia, Focus, and High Contrast modes for different learners.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Text-to-Speech</h3>
+        <p>Read lessons aloud to support visually impaired users.</p>
+      </div>
+
     </div>
+  </section>
 
-    <div class="container">
-       
+  <!-- ===== MODE SELECTION (HOOKED TO YOUR mode.js) ===== -->
+  <section class="tool-section" id="modes">
+    <h2>Select Your Learning Mode</h2>
 
-        <h2>Select Your Learning Mode</h2>
-
-        <div class="mode-container">
-
-    <div class="mode-card" onclick="selectMode('normal')">
+    <div class="mode-grid">
+      <div class="mode-card" onclick="selectMode('normal')">
         <h3>Normal Mode</h3>
         <p>Standard learning experience.</p>
-    </div>
+      </div>
 
-    <div class="mode-card" onclick="selectMode('dyslexia')">
+      <div class="mode-card" onclick="selectMode('dyslexia')">
         <h3>Dyslexia Mode</h3>
-        <p>Optimized fonts for easier reading.</p>
-    </div>
+        <p>Optimized reading experience.</p>
+      </div>
 
-    <div class="mode-card" onclick="selectMode('focus')">
+      <div class="mode-card" onclick="selectMode('focus')">
         <h3>Focus Mode</h3>
         <p>Step-by-step structured content.</p>
-    </div>
+      </div>
 
-    <div class="mode-card" onclick="selectMode('contrast')">
+      <div class="mode-card" onclick="selectMode('contrast')">
         <h3>High Contrast</h3>
         <p>Improved visibility and clarity.</p>
+      </div>
     </div>
 
-</div>
+    <!-- Voice Navigation button (IMPORTANT: startListening, not startChatVoice) -->
+    <button onclick="startListening()" class="voice-btn">🎤 Voice Control</button>
+  </section>
 
+  <!-- ===== TOOL SECTION (Optional demo tool UI) ===== -->
+  <section class="tool-section" id="tool">
+    <h2>Try the Simplifier (Demo)</h2>
+    <textarea id="inputText" placeholder="Paste your text here..."></textarea>
+    <br>
+    <button onclick="simplifyText()">Simplify Text</button>
+    <h3>Output:</h3>
+    <div id="outputBox"></div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    © 2026 BridgeAble | Hackathon Project
+  </footer>
+
+  <!-- ===== CHATBOT UI (keep if you want chatbot on homepage) ===== -->
+  <audio id="popupSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3" preload="auto"></audio>
+
+  <button class="chatbot-button" id="chatToggle">💬</button>
+
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">AI Learning Assistant</div>
+
+    <div class="chat-body" id="chatBody">
+      <div class="message bot-message">👋 Welcome to BridgeAble!</div>
+      <div class="message bot-message">How can I assist you today?</div>
     </div>
 
-    <script src="js/mode.js"></script>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Type your question...">
+      <button onclick="startChatVoice()">🎤</button>
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/mode.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/chatbot.js"></script>
+
+  <script>
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Optional: Simple demo “simplify” (not AI, just placeholder)
+    function simplifyText() {
+      const input = document.getElementById("inputText").value.trim();
+      const out = document.getElementById("outputBox");
+      if (!input) { out.innerText = "Paste some text first."; return; }
+
+      // quick demo simplifier (basic)
+      out.innerText = input
+        .replace(/utilize/gi, "use")
+        .replace(/approximately/gi, "about")
+        .replace(/demonstrate/gi, "show");
+    }
+  </script>
+
 </body>
 </html>

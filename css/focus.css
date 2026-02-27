@@ -1,0 +1,89 @@
+.focus-mode {
+  background: #f3f7ff;
+}
+
+.focus-mode #lesson-content {
+  background: white;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  max-width: 780px;
+  margin: 0 auto;
+  font-size: 20px;
+  line-height: 1.8;
+}
+
+.focus-mode #lesson-content {
+  font-size: 20px;
+  line-height: 1.8;
+}
+
+.focus-mode #lesson-content p.active-focus {
+  opacity: 1;
+}
+
+/* ===== Focus Timer UI ===== */
+.focus-mode .focus-timer{
+  display: block;
+  max-width: 420px;
+  margin: 18px auto 0;
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.focus-mode .timer-title{
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.focus-mode .timer-time{
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.focus-mode .timer-controls{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.focus-mode .timer-settings{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-bottom: 12px;
+}
+
+.focus-mode .timer-settings input{
+  width: 90px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  text-align:center;
+  font-size: 16px;
+}
+/* Only timer buttons */
+.focus-mode #focus-timer .timer-controls button,
+.focus-mode #focus-timer .timer-settings button {
+  background: #2563eb;      /* change color */
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;      /* rounded */
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.focus-mode #focus-timer .timer-controls button:hover,
+.focus-mode #focus-timer .timer-settings button:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}

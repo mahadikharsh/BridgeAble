@@ -1,0 +1,57 @@
+/* ===== High Contrast Mode (Content Focused) ===== */
+
+.contrast-mode {
+  background: #000;
+  color: #fff;
+}
+
+/* Keep hero gradient untouched */
+/* No override for .hero */
+
+/* Darken main content sections only */
+.contrast-mode .features,
+.contrast-mode .tool-section {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* Navbar + Footer */
+.contrast-mode .nav,
+.contrast-mode footer {
+  background: #000;
+  color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
+/* Cards */
+.contrast-mode .feature-card,
+.contrast-mode .mode-card {
+  background: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+  box-shadow: none;
+}
+
+/* Lesson content */
+.contrast-mode #lesson-content {
+  background: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff;
+}
+
+/* Buttons */
+.contrast-mode button {
+  background: #ffd400 !important;
+  color: #000 !important;
+  border: 2px solid #fff !important;
+  font-weight: 800;
+}
+
+/* Nav links */
+.contrast-mode .nav ul li {
+  color: #fff !important;
+}
+
+.contrast-mode .nav ul li:hover {
+  color: #ffd400 !important;
+}

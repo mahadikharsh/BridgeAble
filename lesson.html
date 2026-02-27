@@ -1,27 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lesson - BridgeAble</title>
-    <link rel="stylesheet" href="css/main.css">
+  <title>Lesson - BridgeAble</title>
+
+  <!-- Google Fonts (same as index) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dyslexia.css">
+  <link rel="stylesheet" href="css/focus.css">
+  <link rel="stylesheet" href="css/contrast.css">
 </head>
 <body>
 
-    <div class="topbar">
-        <div class="brand">
-            <h1>BridgeAble</h1>
-            <p class="top-tagline">Bridging Learning Gaps Through Adaptive Education</p>
-        </div>
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">BridgeAble</div>
+    <ul>
+      <li onclick="window.location.href='index.html'">Home</li>
+      <li onclick="window.location.href='lesson-select.html'">Lessons</li>
+      <li onclick="window.location.href='index.html#modes'">Modes</li>
+      <li onclick="window.history.back()">Back</li>
+    </ul>
+  </nav>
+
+  <!-- HERO (small) -->
+  <section class="hero" style="padding: 60px 20px;">
+    <h1 id="lesson-title">Lesson</h1>
+    <p>Your selected learning mode will shape the content.</p>
+  </section>
+
+<!-- Focus Timer (shows only in focus mode) -->
+<div id="focus-timer" class="focus-timer" style="display:none;">
+  <div class="timer-title">⏳ Focus Timer</div>
+
+  <!-- Set duration -->
+  <div class="timer-settings">
+    <label for="timerMinutes"><b>Minutes:</b></label>
+    <input id="timerMinutes" type="number" min="1" max="180" value="25">
+    <button onclick="applyTimerMinutes()">Set</button>
+  </div>
+
+  <div class="timer-time">
+    <span id="timer-min">25</span>:<span id="timer-sec">00</span>
+  </div>
+
+  <div class="timer-controls">
+    <button onclick="startFocusTimer()">Start</button>
+    <button onclick="pauseFocusTimer()">Pause</button>
+    <button onclick="resetFocusTimer()">Reset</button>
+  </div>
+
+  <!-- Beep audio (local file recommended) -->
+  <audio id="timerBeep" src="assets/audio/Censor Beep 3 - QuickSounds.com.mp3" preload="auto"></audio>
+</div>
+
+
+  <!-- LESSON CONTENT -->
+  <section class="tool-section">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <div id="lesson-content" style="background:white; padding:20px; border-radius:12px; text-align:left; box-shadow:0 5px 15px rgba(0,0,0,0.08);"></div>
+
+      <div style="margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <button onclick="readAloud()">🔊 Read Aloud</button>
+        <button onclick="startListening()" class="voice-btn">🎤 Voice Control</button>
+        <button onclick="window.location.href='lesson-select.html'">📚 Change Lesson</button>
+        <button onclick="window.location.href='index.html#modes'">🎛 Change Mode</button>
+      </div>
     </div>
+  </section>
 
-    <div class="container">
-        <h2 id="lesson-title"></h2>
-        <div id="lesson-content"></div>
+  <!-- FOOTER -->
+  <footer>
+    © 2026 BridgeAble | Hackathon Project
+  </footer>
 
-        <br>
-        <button onclick="readAloud()">Read Aloud</button>
-    </div>
+  <!-- SCRIPTS (order matters) -->
+  <script src="js/data.js"></script>
+  <script src="js/lesson.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/focustimer.js"></script>
 
-    <script src="js/data.js"></script>
-    <script src="js/lesson.js"></script>
 </body>
 </html>
