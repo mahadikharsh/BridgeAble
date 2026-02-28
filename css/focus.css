@@ -26,7 +26,7 @@
 .focus-mode .focus-timer{
   display: block;
   max-width: 420px;
-  margin: 18px auto 0;
+  margin: 18px auto 18px;
   background: #fff;
   border-radius: 14px;
   padding: 16px;
