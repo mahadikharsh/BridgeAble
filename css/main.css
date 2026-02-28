@@ -729,3 +729,13 @@ footer {
   transform: translateY(-2px);
   opacity: 0.95;
 }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 32px;
+  width: auto;
+}
