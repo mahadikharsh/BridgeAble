@@ -7,7 +7,7 @@
 }
 
 
-.dyslexia-mode {
+body.dyslexia-mode {
   background: #fbf7ee;
   font-family: "OpenDyslexic", Inter, Arial, sans-serif;
 }

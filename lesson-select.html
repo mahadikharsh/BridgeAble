@@ -7,6 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dyslexia.css">
+  <link rel="stylesheet" href="css/focus.css">
+  <link rel="stylesheet" href="css/contrast.css">
 </head>
 <body>
 
@@ -31,39 +34,80 @@
   <section class="features">
     <h2>Available Lessons</h2>
 
-    <div class="feature-container">
-      <div class="feature-card" onclick="selectLesson('algorithm')" style="cursor:pointer;">
-        <h3>Algorithm Basics</h3>
-        <p>Understand step-by-step problem solving.</p>
-      </div>
+  <div class="feature-container lessons-container" id="lessonContainer"></div>
 
-      <div class="feature-card" onclick="selectLesson('programming')" style="cursor:pointer;">
-        <h3>Intro to Programming</h3>
-        <p>Learn how coding solves real problems.</p>
-      </div>
-
-      <div class="feature-card" onclick="selectLesson('html')" style="cursor:pointer;">
-        <h3>HTML Fundamentals</h3>
-        <p>Build webpages using tags and structure.</p>
-      </div>
-    </div>
+</div>
 
     <button onclick="startListening()" class="voice-btn" style="margin-top:25px;">🎤 Voice Control</button>
   </section>
+
+  <main>
+
+  <!-- HERO -->
+
+
+</main>
+
+
 
   <!-- FOOTER -->
   <footer>
     © 2026 BridgeAble | Hackathon Project
   </footer>
 
-  <!-- SCRIPTS -->
-  <script src="js/voice.js"></script>
-  <script>
-    function selectLesson(lesson) {
-      localStorage.setItem("selectedLesson", lesson);
-      window.location.href = "lesson.html";
-    }
-  </script>
+<!-- SCRIPTS -->
+<script src="js/db.js"></script>
+<script src="js/seedlessons.js"></script>
+<script src="js/voice.js"></script>
 
-</body>
-</html>
+<script>
+  function selectLesson(lessonKey) {
+    localStorage.setItem("selectedLesson", lessonKey);
+    window.location.href = "lesson.html";
+  }
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    // 1) Apply mode UI
+    const mode = localStorage.getItem("learningMode") || "normal";
+    document.body.classList.remove("dyslexia-mode", "focus-mode", "contrast-mode");
+    if (mode === "dyslexia") document.body.classList.add("dyslexia-mode");
+    if (mode === "focus") document.body.classList.add("focus-mode");
+    if (mode === "contrast") document.body.classList.add("contrast-mode");
+
+    // 2) DB + seed (only once)
+    await initDB();
+    await seedLessons(); // now seedLessons exists because seedlessons.js loaded above
+
+    // 3) Render lessons from DB
+    const lessons = await getAllLessons();
+    const progress = await getAllProgress();
+    const completedSet = new Set(progress.filter(p => p.completed).map(p => p.lessonKey));
+
+    const container = document.getElementById("lessonContainer");
+    if (!container) {
+      console.error("lessonContainer not found in HTML");
+      return;
+    }
+
+    container.innerHTML = "";
+
+    lessons.forEach(L => {
+      const isDone = completedSet.has(L.lessonKey);
+
+      const card = document.createElement("div");
+      card.className = "feature-card";
+      card.style.cursor = "pointer";
+      card.onclick = () => selectLesson(L.lessonKey);
+
+      card.innerHTML = `
+        <h3>
+          ${L.title}
+          <span class="badge" style="display:${isDone ? "inline-block" : "none"};">Completed</span>
+        </h3>
+        <p>${L.description || ""}</p>
+      `;
+
+      container.appendChild(card);
+    });
+  });
+</script>

@@ -15,6 +15,7 @@
   <nav class="nav">
     <div class="logo">BridgeAble</div>
     <ul>
+      <li onclick="window.location.href='dashboard.html'">Dashboard</li>
       <li onclick="scrollToSection('home')">Home</li>
       <li onclick="scrollToSection('features')">Features</li>
       <li onclick="scrollToSection('modes')">Modes</li>
@@ -22,12 +23,19 @@
     </ul>
   </nav>
 
+  
   <!-- ===== HERO ===== -->
   <section class="hero" id="home">
     <h1>Learning Without Barriers</h1>
     <p>Bridging Learning Gaps Through Adaptive Education</p>
-    <button onclick="scrollToSection('modes')">Choose Mode</button>
+    <div class="hero-buttons">
+  <button class="hero-btn" onclick="scrollToSection('modes')">Choose Mode</button>
+      <button id="resumeBtn" class="hero-btn hero-btn-outline" style="display:none;" onclick="resumeLesson()">
+    ▶ Continue Last Lesson
+  </button>
+  </div>
   </section>
+  
 
   <!-- ===== FEATURES ===== -->
   <section class="features" id="features">
@@ -49,6 +57,10 @@
         <p>Read lessons aloud to support visually impaired users.</p>
       </div>
 
+    </div>
+    <div id="studyStats" class="feature-card" style="max-width:320px;margin:40px auto;">
+      <h3>Total Focus Time</h3>
+      <p><span id="totalMinutes">0</span> minutes studied</p>
     </div>
   </section>
 
@@ -92,6 +104,12 @@
     <div id="outputBox"></div>
   </section>
 
+
+  
+
+  
+
+
   <!-- ===== FOOTER ===== -->
   <footer>
     © 2026 BridgeAble | Hackathon Project
@@ -118,6 +136,30 @@
   </div>
 
   <!-- Scripts -->
+   <script src="js/db.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    await initDB();
+  });
+</script>
+   <script src="js/seedlessons.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    await initDB();
+    await seedLessonsIfEmpty(SEED_LESSONS);
+  });
+</script>
+   <script>
+document.addEventListener("DOMContentLoaded", async () => {
+  await initDB();
+
+  const sessions = await getAllSessions();
+  const total = sessions.reduce((sum, s) => sum + (s.durationMinutes || 0), 0);
+
+  const el = document.getElementById("totalMinutes");
+  if (el) el.textContent = total;
+});
+</script>
   <script src="js/mode.js"></script>
   <script src="js/voice.js"></script>
   <script src="js/chatbot.js"></script>
@@ -141,6 +183,26 @@
         .replace(/demonstrate/gi, "show");
     }
   </script>
+  <script>
+async function resumeLesson(){
+  const last = await getSetting("lastLesson") || localStorage.getItem("lastLesson");
+  if (!last) return;
+
+  localStorage.setItem("selectedLesson", last);
+  window.location.href = "lesson.html";
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await initDB();
+
+  const last = await getSetting("lastLesson") || localStorage.getItem("lastLesson");
+  const btn = document.getElementById("resumeBtn");
+
+  if (btn && last) {
+    btn.style.display = "inline-block";
+  }
+});
+</script>
 
 </body>
 </html>

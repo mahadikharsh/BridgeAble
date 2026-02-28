@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard - BridgeAble</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">BridgeAble</div>
+  <ul>
+    <li onclick="window.location.href='index.html'">Home</li>
+    <li onclick="window.location.href='lesson-select.html'">Lessons</li>
+    <li onclick="window.location.href='dashboard.html'">Dashboard</li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:60px 20px;">
+    <h1>Progress Dashboard</h1>
+    <p>Your learning activity and study history.</p>
+  </section>
+
+  <section class="tool-section">
+    <div style="max-width:900px;margin:0 auto;text-align:left;">
+
+      <h2>✅ Completed Lessons</h2>
+      <div id="completedList" style="margin-bottom:40px;"></div>
+
+      <h2>⏱ Focus Sessions</h2>
+      <div id="sessionList"></div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 BridgeAble | Hackathon Project
+</footer>
+
+<!-- SCRIPTS -->
+<script src="js/db.js"></script>
+
+<script>
+(async function(){
+  await initDB();
+
+  // ===== COMPLETED LESSONS =====
+  const progress = await getAllProgress();
+  const completed = progress.filter(p => p.completed);
+
+  const completedDiv = document.getElementById("completedList");
+
+  if (!completed.length) {
+    completedDiv.innerHTML = "<p>No lessons completed yet.</p>";
+  } else {
+    completedDiv.innerHTML =
+      "<ul>" +
+      completed.map(x =>
+        `<li><b>${x.lessonKey}</b> — completed</li>`
+      ).join("") +
+      "</ul>";
+  }
+
+  // ===== FOCUS SESSIONS =====
+  const sessions = await getAllSessions();
+  const sessionDiv = document.getElementById("sessionList");
+
+  if (!sessions.length) {
+    sessionDiv.innerHTML = "<p>No focus sessions recorded yet.</p>";
+    return;
+  }
+
+  const total = sessions.reduce((sum, s) => sum + (s.durationMinutes || 0), 0);
+
+  sessionDiv.innerHTML =
+    `<p><b>Total Study Time:</b> ${total} minutes</p>` +
+    "<ul>" +
+      sessions.slice().reverse().map(s =>
+        `<li>${s.durationMinutes} minutes — ${new Date(s.completedAt).toLocaleString()}</li>`
+      ).join("") +
+    "</ul>";
+})();
+</script>
+
+</body>
+</html>

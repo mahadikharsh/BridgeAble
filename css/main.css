@@ -1,11 +1,22 @@
 /* index.html */
 
-body {
+
+html, body {
+    height: 100%;
     margin: 0;
+}
+
+body {
     font-family: Arial, sans-serif;
     background: #f4f6f8;
     text-align: center;
-    
+
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }
 
 .topbar {
@@ -233,6 +244,42 @@ body {
             font-weight: 600;
             cursor: pointer;
         }
+        .hero-buttons{
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero-btn{
+  padding: 12px 22px;
+  font-size: 15px;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: #2563eb;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.hero-btn:hover{
+  transform: translateY(-2px);
+}
+
+.hero-btn-outline{
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: none;
+}
+
+.hero-btn-outline:hover{
+  background: rgba(255,255,255,0.22);
+}
+
 
         /* ===== FEATURES ===== */
         .features {
@@ -632,4 +679,14 @@ footer {
   margin-bottom: 12px;
   line-height: 1;
   font-size: 16px;
+}
+
+.badge{
+  background:#10b981;
+  color:white;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  margin-left:10px;
 }

@@ -91,6 +91,8 @@ function startFocusTimer() {
       pauseFocusTimer();
 
       playBeep();
+      const minutes = Math.floor(getDefaultSeconds() / 60);
+      saveSession(minutes);
       // Optional voice message if you have speak()
       if (typeof speak === "function") speak("Focus session completed.");
       return;

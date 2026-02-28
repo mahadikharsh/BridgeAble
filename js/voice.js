@@ -46,7 +46,7 @@ function selectLessonAndGo(lessonKey) {
   window.location.href = "lesson.html";
 }
 
-function handleVoiceCommand(command) {
+async function handleVoiceCommand(command) {
   // 🔊 Read aloud
   if (command.includes("read")) {
     if (typeof readAloud === "function") readAloud();
@@ -75,10 +75,36 @@ function handleVoiceCommand(command) {
   if (command.includes("contrast")) return setModeAndGo("contrast");
   if (command.includes("normal")) return setModeAndGo("normal");
 
-  // 📚 Lesson selection by voice
-  if (command.includes("algorithm")) return selectLessonAndGo("algorithm");
-  if (command.includes("programming")) return selectLessonAndGo("programming");
-  if (command.includes("html")) return selectLessonAndGo("html");
+ // 📚 Lesson selection by voice (DB-based)
+  try {
+    // make sure db.js is loaded on this page
+    if (typeof getAllLessons !== "function") {
+      console.warn("getAllLessons() not found. Did you include db.js before voice.js?");
+    } else {
+      const lessons = await getAllLessons(); // from IndexedDB
+      const cmd = command.toLowerCase();
+
+      for (const L of lessons) {
+        const key = (L.lessonKey || "").toLowerCase();
+        const title = (L.title || "").toLowerCase();
+
+        // match by key or full title
+        if ((key && cmd.includes(key)) || (title && cmd.includes(title))) {
+          return selectLessonAndGo(L.lessonKey);
+        }
+
+        // optional: match first word of title (more forgiving)
+        const firstWord = title.split(" ")[0];
+        if (firstWord && cmd.includes(firstWord)) {
+          return selectLessonAndGo(L.lessonKey);
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Lesson voice match error:", err);
+  }
 
   alert("Command not recognized: " + command);
 }
+
+  

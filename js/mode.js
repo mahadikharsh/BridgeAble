@@ -1,6 +1,7 @@
-function selectMode(mode) {
-    localStorage.setItem("learningMode", mode);
-   
+async function selectMode(mode) {
+  localStorage.setItem("learningMode", mode); // keep for fast access
 
-window.location.href="lesson-select.html"
+  await saveSetting("learningMode", mode);   // save to DB
+
+  window.location.href = "lesson-select.html";
 }
