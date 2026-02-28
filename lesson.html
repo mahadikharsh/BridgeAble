@@ -22,6 +22,8 @@
       <li onclick="window.location.href='lesson-select.html'">Lessons</li>
       <li onclick="window.location.href='index.html#modes'">Modes</li>
       <li onclick="window.history.back()">Back</li>
+          <li onclick="logout()">Logout</li>
+
     </ul>
   </nav>
 
@@ -64,11 +66,13 @@
       <div id="lesson-content" style="background:white; padding:20px; border-radius:12px; text-align:left; box-shadow:0 5px 15px rgba(0,0,0,0.08);"></div>
 
       <div style="margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-        <button onclick="readAloud()">🔊 Read Aloud</button>
-        <button onclick="startListening()" class="voice-btn">🎤 Voice Control</button>
-        <button onclick="window.location.href='lesson-select.html'">📚 Change Lesson</button>
-        <button onclick="window.location.href='index.html#modes'">🎛 Change Mode</button>
-        <button onclick="markLessonComplete()">✅ Mark as Completed</button>
+      <div class="lesson-actions">
+        <button class="lesson-btn" onclick="readAloud()">🔊 Read Aloud</button>
+        <button class="lesson-btn" onclick="startListening()">🎤 Voice Control</button>
+        <button class="lesson-btn" onclick="window.location.href='lesson-select.html'">📚 Change Lesson</button>
+        <button class="lesson-btn" onclick="window.location.href='index.html#modes'">🎛 Change Mode</button>
+        <button class="lesson-btn" onclick="markLessonComplete()">✅ Mark as Completed</button>
+      </div>
       </div>
     </div>
   </section>
@@ -99,6 +103,13 @@
   <script src="js/lesson.js"></script>
   <script src="js/voice.js"></script>
   <script src="js/focustimer.js"></script>
+  <script src="js/protect.js"></script>
+  <script>
+  function logout(){
+    localStorage.removeItem("ba_session");
+    window.location.href = "auth.html";
+  }
+</script>
 
 </body>
 </html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BridgeAble - Login</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+
+  <style>
+    .auth-wrap{
+      max-width: 980px;
+      margin: 40px auto;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+    }
+    .auth-card{
+      background:#fff;
+      border-radius:14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      padding: 22px;
+      text-align:left;
+    }
+    .auth-card h2{ margin-bottom: 10px; }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; }
+    .field{ margin: 10px 0; width: 100%; }
+    .field label{ display:block; font-weight:600; margin-bottom:6px; }
+    .field input, .field select{
+      width:100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      outline: none;
+      font-size: 14px;
+    }
+    .field input:focus, .field select:focus{ border-color:#2563eb; }
+    .btn{
+      background:#2563eb;
+      color:white;
+      border:none;
+      border-radius:10px;
+      padding: 12px 14px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .btn.secondary{
+      background:#111827;
+    }
+    .btn.ghost{
+      background:transparent;
+      color:#2563eb;
+      border:1px solid #2563eb;
+    }
+    .muted{ color:#6b7280; font-size: 13px; }
+    .error{ color:#ef4444; font-size: 13px; margin-top:8px; }
+    .ok{ color:#10b981; font-size: 13px; margin-top:8px; }
+    .tabs{ display:flex; gap:10px; margin-bottom: 12px; }
+    .tab{
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor:pointer;
+      font-weight:700;
+      border:1px solid #d1d5db;
+      background:#f9fafb;
+    }
+    .tab.active{
+      border-color:#2563eb;
+      background:#e0f2fe;
+    }
+    .hidden{ display:none; }
+
+    @media(max-width: 900px){
+      .auth-wrap{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">BridgeAble</div>
+    <ul>
+      <li onclick="window.location.href='index.html'">Home</li>
+      <li onclick="window.location.href='lesson-select.html'">Lessons</li>
+      <li onclick="window.location.href='dashboard.html'">Dashboard</li>
+    </ul>
+  </nav>
+
+  <section class="hero" style="padding:60px 20px;">
+    <h1>Login / Signup</h1>
+    <p>Sign in as a Student or Teacher to continue.</p>
+  </section>
+
+  <div class="auth-wrap">
+
+    <!-- LEFT: Login + Signup -->
+    <div class="auth-card">
+      <div class="tabs">
+        <div id="tabLogin" class="tab active">Login</div>
+        <div id="tabSignup" class="tab">Signup</div>
+        <div id="tabForgot" class="tab">Forgot Password</div>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="panelLogin">
+        <h2>Login</h2>
+        <p class="muted">Use your email + password.</p>
+
+        <div class="field">
+          <label>Email</label>
+          <input id="loginEmail" type="email" autocomplete="email" placeholder="you@example.com" />
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••" />
+        </div>
+
+        <div class="field">
+          <label>Login as</label>
+          <select id="loginRole">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <button class="btn" id="btnLogin">Login</button>
+          <button class="btn ghost" id="btnGoForgot">Forgot password?</button>
+        </div>
+
+        <div id="loginMsg" class=""></div>
+      </div>
+
+      <!-- SIGNUP -->
+      <div id="panelSignup" class="hidden">
+        <h2>Signup</h2>
+        <p class="muted">Create an account (demo stored in IndexedDB).</p>
+
+        <div class="row">
+          <div class="field" style="flex:1;">
+            <label>Full Name</label>
+            <input id="suName" type="text" placeholder="Your name" />
+          </div>
+          <div class="field" style="flex:1;">
+            <label>Role</label>
+            <select id="suRole">
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input id="suEmail" type="email" autocomplete="email" placeholder="you@example.com" />
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input id="suPassword" type="password" autocomplete="new-password" placeholder="Min 6 chars" />
+        </div>
+
+        <div class="field">
+          <label>Security question (for Forgot Password demo)</label>
+          <input id="suSecQ" type="text" placeholder="e.g. Your favorite color?" />
+        </div>
+
+        <div class="field">
+          <label>Security answer</label>
+          <input id="suSecA" type="text" placeholder="e.g. Blue" />
+        </div>
+
+        <button class="btn" id="btnSignup">Create Account</button>
+        <div id="signupMsg" class=""></div>
+      </div>
+
+      <!-- FORGOT PASSWORD -->
+      <div id="panelForgot" class="hidden">
+        <h2>Forgot Password</h2>
+        <p class="muted">Demo reset using security answer (no email sending in prototype).</p>
+
+        <div class="field">
+          <label>Email</label>
+          <input id="fpEmail" type="email" placeholder="you@example.com" />
+        </div>
+
+        <div class="field">
+          <label>Security Answer</label>
+          <input id="fpSecA" type="text" placeholder="Your answer" />
+        </div>
+
+        <div class="field">
+          <label>New Password</label>
+          <input id="fpNewPassword" type="password" placeholder="Min 6 chars" />
+        </div>
+
+        <div class="row">
+          <button class="btn" id="btnReset">Reset Password</button>
+          <button class="btn secondary" id="btnBackLogin">Back to Login</button>
+        </div>
+
+        <div id="forgotMsg" class=""></div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Info -->
+    <div class="auth-card">
+      <h2>Demo Notes</h2>
+      <p class="muted">
+        This is a hackathon prototype using <b>IndexedDB</b>.  
+        In production, authentication must be server-side (hashed passwords + tokens).
+      </p>
+      <hr style="border:none;border-top:1px solid #e5e7eb;margin:16px 0;">
+      <p><b>After login:</b></p>
+      <ul class="muted" style="margin-left:18px; line-height:1.7;">
+        <li>You’ll be redirected to <b>Dashboard</b>.</li>
+        <li>Student/Teacher role is stored in session.</li>
+        <li>Protected pages will redirect to login if not signed in.</li>
+      </ul>
+
+      <div style="margin-top:16px;">
+        <button class="btn ghost" onclick="window.location.href='index.html'">Back to Home</button>
+      </div>
+    </div>
+
+  </div>
+
+
+  
+  <footer>
+    © 2026 BridgeAble | Hackathon Project
+  </footer>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

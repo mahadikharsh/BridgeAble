@@ -16,6 +16,7 @@
     <li onclick="window.location.href='index.html'">Home</li>
     <li onclick="window.location.href='lesson-select.html'">Lessons</li>
     <li onclick="window.location.href='dashboard.html'">Dashboard</li>
+    <li onclick="logout()">Logout</li>
   </ul>
 </nav>
 
@@ -89,6 +90,13 @@
       ).join("") +
     "</ul>";
 })();
+</script>
+<script src="js/protect.js"></script>
+<script>
+  function logout(){
+    localStorage.removeItem("ba_session");
+    window.location.href = "auth.html";
+  }
 </script>
 
 </body>

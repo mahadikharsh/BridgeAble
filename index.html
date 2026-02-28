@@ -20,6 +20,8 @@
       <li onclick="scrollToSection('features')">Features</li>
       <li onclick="scrollToSection('modes')">Modes</li>
       <li onclick="scrollToSection('tool')">Tool</li>
+          <li onclick="logout()">Logout</li>
+
     </ul>
   </nav>
 
@@ -202,6 +204,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     btn.style.display = "inline-block";
   }
 });
+</script>
+<script src="js/protect.js"></script>
+<script>
+  function logout(){
+    localStorage.removeItem("ba_session");
+    window.location.href = "auth.html";
+  }
 </script>
 
 </body>

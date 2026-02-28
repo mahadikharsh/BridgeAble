@@ -20,6 +20,14 @@ function initDB() {
     request.onupgradeneeded = (event) => {
       db = event.target.result;
 
+      // Users store (auth)
+      if (!db.objectStoreNames.contains("users")) {
+      // key: "email::role"
+        const store = db.createObjectStore("users", { keyPath: "id" });
+        store.createIndex("email", "email", { unique: false });
+        store.createIndex("role", "role", { unique: false });
+      }
+
       // Settings store
       if (!db.objectStoreNames.contains("settings")) {
         db.createObjectStore("settings", { keyPath: "key" });

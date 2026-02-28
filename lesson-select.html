@@ -21,6 +21,8 @@
       <li onclick="window.location.href='index.html#features'">Features</li>
       <li onclick="window.location.href='index.html#modes'">Modes</li>
       <li onclick="window.location.href='lesson-select.html'">Lessons</li>
+          <li onclick="logout()">Logout</li>
+
     </ul>
   </nav>
 
@@ -57,7 +59,7 @@
 
 <!-- SCRIPTS -->
 <script src="js/db.js"></script>
-<script src="js/seedlessons.js"></script>
+<script src="js/seedlesson.js"></script>
 <script src="js/voice.js"></script>
 
 <script>
@@ -110,4 +112,11 @@
       container.appendChild(card);
     });
   });
+</script>
+<script src="js/protect.js"></script>
+<script>
+  function logout(){
+    localStorage.removeItem("ba_session");
+    window.location.href = "auth.html";
+  }
 </script>
